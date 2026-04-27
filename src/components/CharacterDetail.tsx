@@ -4,9 +4,10 @@ import Icon from "@/components/ui/icon";
 type Props = {
   character: Character;
   onBack: () => void;
+  onChat: () => void;
 };
 
-export default function CharacterDetail({ character, onBack }: Props) {
+export default function CharacterDetail({ character, onBack, onChat }: Props) {
   return (
     <div className="min-h-screen px-6 py-10 max-w-5xl mx-auto">
       <button
@@ -120,14 +121,15 @@ export default function CharacterDetail({ character, onBack }: Props) {
 
           {/* CTA Button */}
           <button
-            className="w-full py-4 rounded-2xl font-medium text-base transition-all duration-300 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]"
+            onClick={onChat}
+            className="w-full py-4 rounded-2xl font-medium text-base transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
             style={{
-              background: `linear-gradient(135deg, ${character.color}30, ${character.color}15)`,
-              border: `1px solid ${character.color}50`,
-              color: character.color,
-              boxShadow: `0 0 30px ${character.color}20`,
+              background: `linear-gradient(135deg, ${character.color}, ${character.color}cc)`,
+              color: "white",
+              boxShadow: `0 0 30px ${character.color}40`,
             }}
           >
+            <Icon name="MessageCircle" size={18} />
             Начать разговор с {character.name}
           </button>
 

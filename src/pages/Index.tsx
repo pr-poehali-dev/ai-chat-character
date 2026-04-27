@@ -2,6 +2,7 @@ import { useState } from "react";
 import CharacterGallery from "@/components/CharacterGallery";
 import CreateCharacter from "@/components/CreateCharacter";
 import CharacterDetail from "@/components/CharacterDetail";
+import CharacterChat from "@/components/CharacterChat";
 
 export type Character = {
   id: string;
@@ -84,7 +85,7 @@ const DEFAULT_CHARACTERS: Character[] = [
   },
 ];
 
-type View = "gallery" | "create" | "detail";
+type View = "gallery" | "create" | "detail" | "chat";
 
 export default function Index() {
   const [view, setView] = useState<View>("gallery");
@@ -127,7 +128,7 @@ export default function Index() {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 flex items-center justify-between px-6 py-5 border-b border-border/40 backdrop-blur-sm">
+      <header className={`relative z-10 flex items-center justify-between px-6 py-5 border-b border-border/40 backdrop-blur-sm ${view === "chat" ? "hidden" : ""}`}>
         <button
           onClick={() => setView("gallery")}
           className="flex items-center gap-3 group"
@@ -192,6 +193,13 @@ export default function Index() {
           <CharacterDetail
             character={selectedCharacter}
             onBack={() => setView("gallery")}
+            onChat={() => setView("chat")}
+          />
+        )}
+        {view === "chat" && selectedCharacter && (
+          <CharacterChat
+            character={selectedCharacter}
+            onBack={() => setView("detail")}
           />
         )}
       </main>
